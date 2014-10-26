@@ -1,11 +1,11 @@
-## Data Dictionary - Tidy data set derived from UCI Machine Learning Repository * Human Activity Recognition Using Smartphones Data Set *  
+## Data Dictionary - Tidy data set derived from UCI Machine Learning Repository  "Human Activity Recognition Using Smartphones Data Set"  
 
 
 * Subject 
-<p>Range 1-30</br>
+<p>Range 1-30 --
 30 volunteers within an age bracket of 19-48 years.</p>
 
-* Activity* 
+* Activity
 <p>Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)</p>
 
 ### Measurements
