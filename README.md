@@ -57,89 +57,33 @@ The set of variables that were estimated from these signals are:
 
 Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
 
-gravityMean
-tBodyAccMean
-tBodyAccJerkMean
-tBodyGyroMean
-tBodyGyroJerkMean
+* gravityMean
+* tBodyAccMean
+* tBodyAccJerkMean
+* tBodyGyroMean
+* tBodyGyroJerkMean
 
 
-## Loading the data
+## Steps taken to clean the data
+
+My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set.
+
+* Load "training data set" and "test data set" to the memory and merge them
+1 train <- read.table("X_train.txt",header=FALSE)
+2 test <- read.table("X_test.txt",header=FALSE)
+3 train <- rbind(train,test)
+* Load and merge "training subject list" and "test subject list"
+1 subject <- read.table("subject_train.txt",header = FALSE)
+2 subjecttest <- read.table("subject_test.txt",header=FALSE)
+3 subject <- rbind(subject,subjecttest)
+* Load "features.txt", "y_train.txt" and "y_test.txt" to get column headings and activities for training and test sets. Combine training and test activities.
+1 headerc <- read.table("features.txt",header = FALSE)
+2 activity <- read.table("y_train.txt",header = FALSE)
+3 activitytest <- read.table("y_test.txt",header = FALSE)
+4 activity <- rbind(activity,activitytest)
+* Load labels for activities and create a descriptive activity names
+1 actlabel <- read.table("activity_labels.txt",header = FALSE)
+2 activities <- as.character(actlabel[activity[[1]],2])
 
 
-
-
-
-When loading the dataset into R, please consider the following:
-
-* The dataset has 2,075,259 rows and 9 columns. First
-calculate a rough estimate of how much memory the dataset will require
-in memory before reading into R. Make sure your computer has enough
-memory (most modern computers should be fine).
-
-* We will only be using data from the dates 2007-02-01 and
-2007-02-02. One alternative is to read the data from just those dates
-rather than reading in the entire dataset and subsetting to those
-dates.
-
-* You may find it useful to convert the Date and Time variables to
-Date/Time classes in R using the `strptime()` and `as.Date()`
-functions.
-
-* Note that in this dataset missing values are coded as `?`.
-
-
-## Making Plots
-
-Our overall goal here is simply to examine how household energy usage
-varies over a 2-day period in February, 2007. Your task is to
-reconstruct the following plots below, all of which were constructed
-using the base plotting system.
-
-First you will need to fork and clone the following GitHub repository:
-[https://github.com/rdpeng/ExData_Plotting1](https://github.com/rdpeng/ExData_Plotting1)
-
-
-For each plot you should
-
-* Construct the plot and save it to a PNG file with a width of 480
-pixels and a height of 480 pixels.
-
-* Name each of the plot files as `plot1.png`, `plot2.png`, etc.
-
-* Create a separate R code file (`plot1.R`, `plot2.R`, etc.) that
-constructs the corresponding plot, i.e. code in `plot1.R` constructs
-the `plot1.png` plot. Your code file **should include code for reading
-the data** so that the plot can be fully reproduced. You should also
-include the code that creates the PNG file.
-
-* Add the PNG file and R code file to your git repository
-
-When you are finished with the assignment, push your git repository to
-GitHub so that the GitHub version of your repository is up to
-date. There should be four PNG files and four R code files.
-
-
-The four plots that you will need to construct are shown below. 
-
-
-### Plot 1
-
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
-
-
-### Plot 2
-
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
-
-
-### Plot 3
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
-
-### Plot 4
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
