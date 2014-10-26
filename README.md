@@ -1,6 +1,6 @@
 ## Steps taken to clean the data
 
-My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set.
+My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set. The final result can be seen in the uploaded "final_tidy.txt".
 
 * Load "training data set" and "test data set" to the memory and merge them
 <ol>
