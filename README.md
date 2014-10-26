@@ -1,4 +1,59 @@
-## Introduction
+## Steps taken to clean the data
+
+My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set.
+
+* Load "training data set" and "test data set" to the memory and merge them
+<ol>
+<li>train <- read.table("X_train.txt",header=FALSE)</li>
+<li>test <- read.table("X_test.txt",header=FALSE)</li>
+<li>train <- rbind(train,test)</li>
+</ol>
+* Load and merge "training subject list" and "test subject list"
+<ol>
+<li>subject <- read.table("subject_train.txt",header = FALSE)</li>
+<li>subjecttest <- read.table("subject_test.txt",header=FALSE)</li>
+<li>subject <- rbind(subject,subjecttest)</li>
+</ol>
+* Load "features.txt", "y_train.txt" and "y_test.txt" to get column headings and activities for training and test sets. Combine training and test activities.
+<ol>
+<li>headerc <- read.table("features.txt",header = FALSE)</li>
+<li>activity <- read.table("y_train.txt",header = FALSE)</li>
+<li>activitytest <- read.table("y_test.txt",header = FALSE)</li>
+<li>activity <- rbind(activity,activitytest)</li>
+</ol>
+* Load labels for activities and create a descriptive activity names
+<ol>
+<li>actlabel <- read.table("activity_labels.txt",header = FALSE)</li>
+<li>activities <- as.character(actlabel[activity[[1]],2])</li>
+</ol>
+* Appnd Subject and Activity columns to the data set
+<ol>
+<li>train <- cbind(subject,train,activities)</li>
+<li>colnames(train) <- c("Subject",as.character(headerc[,2]),"Activity")</li>
+</ol>
+* Extracts mean and standard deviation for each measurement and assign to another variable
+<ol>
+<li>x <- grep("mean()", colnames(train),fixed=TRUE,value=FALSE)</li>
+<li>y <- grep("std()", colnames(train),fixed=TRUE,value=FALSE)</li>
+<li>x <- sort(c(x,y))</li>
+<li>tidy <- train[,c(1,x,563)]</li>
+</ol>
+* Remove the unnecessary data frames from the memory and load "dplyr" to do grouping and summarizing. 
+<ol>
+<li>rm(train)</li>
+<li>library(dplyr)</li>
+<li>stidy <- tbl_df(tidy)</li>
+<li>rm(tidy)</li>
+<li>gtidy <- group_by(stidy, Subject, Activity)</li>
+<li>ftidy <- summarise_each(gtidy,funs(mean))</li>
+</ol>
+* Finally, write the data frame to a text file for uploading.
+<ol><li>write.table(ftidy, file="final_tidy.txt",row.names=FALSE)</li></ol>
+
+
+
+
+## About Original Data Set
 
 This project uses data from
 the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
@@ -62,58 +117,5 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyAccJerkMean
 * tBodyGyroMean
 * tBodyGyroJerkMean
-
-
-## Steps taken to clean the data
-
-My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set.
-
-* Load "training data set" and "test data set" to the memory and merge them
-<ol>
-<li>train <- read.table("X_train.txt",header=FALSE)</li>
-<li>test <- read.table("X_test.txt",header=FALSE)</li>
-<li>train <- rbind(train,test)</li>
-</ol>
-* Load and merge "training subject list" and "test subject list"
-<ol>
-<li>subject <- read.table("subject_train.txt",header = FALSE)</li>
-<li>subjecttest <- read.table("subject_test.txt",header=FALSE)</li>
-<li>subject <- rbind(subject,subjecttest)</li>
-</ol>
-* Load "features.txt", "y_train.txt" and "y_test.txt" to get column headings and activities for training and test sets. Combine training and test activities.
-<ol>
-<li>headerc <- read.table("features.txt",header = FALSE)</li>
-<li>activity <- read.table("y_train.txt",header = FALSE)</li>
-<li>activitytest <- read.table("y_test.txt",header = FALSE)</li>
-<li>activity <- rbind(activity,activitytest)</li>
-</ol>
-* Load labels for activities and create a descriptive activity names
-<ol>
-<li>actlabel <- read.table("activity_labels.txt",header = FALSE)</li>
-<li>activities <- as.character(actlabel[activity[[1]],2])</li>
-</ol>
-* Appnd Subject and Activity columns to the data set
-<ol>
-<li>train <- cbind(subject,train,activities)</li>
-<li>colnames(train) <- c("Subject",as.character(headerc[,2]),"Activity")</li>
-</ol>
-* Extracts mean and standard deviation for each measurement and assign to another variable
-<ol>
-<li>x <- grep("mean()", colnames(train),fixed=TRUE,value=FALSE)</li>
-<li>y <- grep("std()", colnames(train),fixed=TRUE,value=FALSE)</li>
-<li>x <- sort(c(x,y))</li>
-<li>tidy <- train[,c(1,x,563)]</li>
-</ol>
-* Remove the unnecessary data frames from the memory and load "dplyr" to do grouping and summarizing. 
-<ol>
-<li>rm(train)</li>
-<li>library(dplyr)</li>
-<li>stidy <- tbl_df(tidy)</li>
-<li>rm(tidy)</li>
-<li>gtidy <- group_by(stidy, Subject, Activity)</li>
-<li>ftidy <- summarise_each(gtidy,funs(mean))</li>
-</ol>
-* Finally, write the data frame to a text file for uploading.
-1. write.table(ftidy, file="final_tidy.txt",row.names=FALSE)
 
 
