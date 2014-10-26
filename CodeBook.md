@@ -2,8 +2,8 @@
 
 
 * Subject 
-Range 1-30 
-30 volunteers within an age bracket of 19-48 years.
+<p>Range 1-30</br>
+30 volunteers within an age bracket of 19-48 years.</p>
 
 * Activity* 
 <p>Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)</p>
