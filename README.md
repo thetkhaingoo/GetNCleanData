@@ -69,9 +69,9 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 My R script (run_analysis.R) perform the following steps to clean the original data set and create an independent tidy data set.
 
 * Load "training data set" and "test data set" to the memory and merge them
-1 train <- read.table("X_train.txt",header=FALSE)
-2 test <- read.table("X_test.txt",header=FALSE)
-3 train <- rbind(train,test)
+1. train <- read.table("X_train.txt",header=FALSE)
+2. test <- read.table("X_test.txt",header=FALSE)
+3. train <- rbind(train,test)
 * Load and merge "training subject list" and "test subject list"
 1 subject <- read.table("subject_train.txt",header = FALSE)
 2 subjecttest <- read.table("subject_test.txt",header=FALSE)
